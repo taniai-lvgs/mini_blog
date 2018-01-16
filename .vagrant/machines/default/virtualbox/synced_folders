@@ -1,1 +1,1 @@
-{"virtualbox":{"/home/vagrant/shared":{"owner":"vagrant","group":"vagrant","guestpath":"/home/vagrant/shared","hostpath":"/Users/keisuke.taniai/private/mini_blog/html","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/keisuke.taniai/private/mini_blog","disabled":false,"__vagrantfile":true}}}
+{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/keisuke.taniai/private/micro_blog","disabled":false,"__vagrantfile":true}}}
