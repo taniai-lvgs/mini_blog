@@ -43,9 +43,9 @@ abstract class Controller
     protected function render($variables = array(), $template = null, $layout = 'layout')
     {
         $defaults = array(
-            'request' => $this->request,
+            'request'  => $this->request,
             'base_url' => $this->request->getBaseUrl(),
-            'session' => $this->session,
+            'session'  => $this->session,
         );
 
         $view = new View($this->application->getViewDir(), $defaults);
@@ -54,7 +54,7 @@ abstract class Controller
             $template = $this->action_name;
         }
 
-        $path = $this->controller_name . '.' . $template;
+        $path = $this->controller_name . '/' . $template;
 
         return $view->render($path, $variables, $layout);
     }
@@ -66,7 +66,7 @@ abstract class Controller
 
     protected function redirect($url)
     {
-        if (!preg_match('#https?://#', $url)) {
+        if (! preg_match('#https?://#', $url)) {
             $protocol = $this->request->isSsl() ? 'https://' : 'http://';
             $host = $this->request->getHost();
             $base_url = $this->request->getBaseUrl();
@@ -75,7 +75,7 @@ abstract class Controller
         }
 
         $this->response->setStatusCode(302, 'Found');
-        $this->response->setHttoHeader('Location', $url);
+        $this->response->setHttpHeader('Location', $url);
     }
 
     protected function generateCsrfToken($form_name)
@@ -99,7 +99,7 @@ abstract class Controller
         $key = 'csrf_tokens/' . $form_name;
         $tokens = $this->session->get($key, array());
 
-        if (false !== ($pop = array_search($token, $tokens, true))) {
+        if (false !== ($pos = array_search($token, $tokens, true))) {
             unset($tokens[$pos]);
             $this->session->set($key, $tokens);
 
@@ -110,7 +110,7 @@ abstract class Controller
 
     protected function needsAuthentication($action)
     {
-        if($this->auth_actions === true
+        if ($this->auth_actions === true
             || (is_array($this->auth_actions) && in_array($action, $this->auth_actions))
         ) {
             return true;
