@@ -15,7 +15,7 @@ abstract class Controller
     {
         $this->controller_name = strtolower(substr(get_class($this), 0, -10));
 
-        $this->appliaction = $application;
+        $this->application = $application;
         $this->request = $application->getRequest();
         $this->response = $application->getResponse();
         $this->session = $application->getSession();
@@ -47,7 +47,7 @@ abstract class Controller
             'base_url' => $this->request->getBaseUrl(),
             'session'  => $this->session,
         );
-
+        
         $view = new View($this->application->getViewDir(), $defaults);
 
         if (is_null($template)) {
