@@ -94,7 +94,7 @@ abstract class Application
     {
         $params = $this->router->resolve($this->request->getPathInfo());
         if ($params === false) {
-            throw new HttpNotFoundExeption('No route found for ' . $this->request->getPathInfo());
+            throw new HttpNotFoundException('No route found for ' . $this->request->getPathInfo());
         }
 
         $controller = $params['controller'];
@@ -104,7 +104,7 @@ abstract class Application
 
         try {
             //
-        } catch (HttpNotFoundExeption $e) {
+        } catch (HttpNotFoundException $e) {
             $this->render404Page($e);
         } catch (UnauthorizedActionException $e) {
             list($controller, $action) = $this->login_action;
@@ -120,7 +120,7 @@ abstract class Application
 
         $controller = $this->findController($controller_class);
         if ($controller === false) {
-            throw new HttpNotFoundExeption($controller_class . ' controller is not found.');
+            throw new HttpNotFoundException($controller_class . ' controller is not found.');
         }
 
         $content = $controller->run($action, $params);
