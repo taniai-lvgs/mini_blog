@@ -11,20 +11,24 @@ class MiniBlogApplication extends Application
 
     protected function registerRoutes()
     {
-        return array(
+        return [
+            '/'
+                => ['controller' => 'status', 'action' => 'index'],
+            '/status/post'
+                => ['controller' => 'status', 'action' => 'post'],
             '/account'
-                => array('controller' => 'account', 'action' => 'index'),
-        'account/:action'
-            => array('controller' => 'account'),
-        );
+                => ['controller' => 'account', 'action' => 'index'],
+            'account/:action'
+                => ['controller' => 'account'],
+        ];
     }
 
     protected function configure()
     {
-        $this->db_manager->connect('master', array(
+        $this->db_manager->connect('master', [
             'dsn'      => 'mysql:dbname=mini-blog_db;host=localhost',
             'user'     => 'root',
             'password' => ''
-        ));
+        ]);
     }
 }
