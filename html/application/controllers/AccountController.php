@@ -17,9 +17,9 @@ class AccountController extends Controller
             $this->forward404();
         }
 
-        $token = $this->request->getPost('token');
+        $token = $this->request->getPost('_token');
         if (! $this->checkCsrfToken('account/signup', $token)) {
-            return $this->redirect('account/signup');
+            return $this->redirect('/account/signup');
         }
 
         $user_name = $this->request->getPost('user_name');
@@ -29,7 +29,7 @@ class AccountController extends Controller
 
         if (! strlen($user_name)) {
             $errors[] = 'ユーザーIDを入力してください';
-        } else if (! preg_match('/^\w{3,20}$', $user_name)) {
+        } else if (! preg_match('/^\w{3,20}$/', $user_name)) {
             $errors[] = 'ユーザーIDは半角英数字及びアンダースコアを3~20文字以内で入力してください';
         } else if (! $this->db_manager->get('User')->isUniqueUserName($user_name)) {
             $errors[] = 'ユーザーIDはすでに使用されています';
@@ -46,7 +46,7 @@ class AccountController extends Controller
 
             $this->session->setAuthenticated(true);
 
-            $user = $this->db_manager->get('User')->fetchByName($user_name);
+            $user = $this->db_manager->get('User')->fetchByUserName($user_name);
             $this->session->set('user', $user);
 
             return $this->redirect('/');
