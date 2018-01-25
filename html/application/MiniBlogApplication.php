@@ -2,7 +2,7 @@
 
 class MiniBlogApplication extends Application
 {
-    protected $login_action = array('account', 'signin');
+    protected $login_action = ['account', 'signin'];
 
     public function getRootDir()
     {
