@@ -73,9 +73,12 @@ class AccountController extends Controller
     public function indexAction()
     {
         $user = $this->session->get('user');
+        $followings = $this->db_manager->get('User')
+            ->fetchAllFollowingsByUserId($user['id']);
 
         return $this->render([
-            'user' => $user
+            'user'       => $user,
+            'followings' => $followings
         ]);
     }
 
